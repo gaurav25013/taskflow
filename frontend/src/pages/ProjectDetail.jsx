@@ -184,7 +184,7 @@ export default function ProjectDetail() {
       {showTaskModal && (
         <TaskModal projectId={id} members={project.members} task={editTask}
           onClose={() => setShowTaskModal(false)}
-          onSave={() => { setShowTaskModal(false); setRefresh(r => r + 1) }} />
+          onSave={() => { setShowTaskModal(false); window.location.reload(); }} />
       )}
 
       {showMemberModal && (
