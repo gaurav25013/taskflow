@@ -18,6 +18,7 @@ export default function ProjectDetail() {
   const [tab, setTab] = useState('tasks')
   const [filters, setFilters] = useState({ status: '', priority: '', search: '' })
   const [showTaskModal, setShowTaskModal] = useState(false)
+  const [refresh, setRefresh] = useState(0)
   const [showMemberModal, setShowMemberModal] = useState(false)
   const [editTask, setEditTask] = useState(null)
 
@@ -183,7 +184,7 @@ export default function ProjectDetail() {
       {showTaskModal && (
         <TaskModal projectId={id} members={project.members} task={editTask}
           onClose={() => setShowTaskModal(false)}
-          onSave={() => { setShowTaskModal(false); loadTasks() }} />
+          onSave={() => { setShowTaskModal(false); setRefresh(r => r + 1) }} />
       )}
 
       {showMemberModal && (
