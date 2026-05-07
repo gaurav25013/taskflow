@@ -112,19 +112,3 @@ What I Learned
 * How to design relationships between users, projects, and tasks
 * Structuring REST APIs properly
 * Implementing role-based access control
-________________
-
-
-Demo
-In the demo, I show:
-* Login
-* Creating a project
-* Adding members
-* Creating and assigning tasks
-* Updating task status
-* Viewing dashboard
-________________
-
-
-Notes
-This project was built mainly to understand backend system design and API structuring, so the emphasis is more on functionality than UI polish.
