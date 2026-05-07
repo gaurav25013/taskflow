@@ -24,7 +24,7 @@ router.get('/', authenticate, requireProjectAccess, (req, res) => {
   if (assignee) { sql += ' AND t.assignee_id = ?'; params.push(assignee); }
   if (search) { sql += ' AND (t.title LIKE ? OR t.description LIKE ?)'; params.push(`%${search}%`, `%${search}%`); }
 
-  sql += ' ORDER BY CASE t.priority WHEN "urgent" THEN 1 WHEN "high" THEN 2 WHEN "medium" THEN 3 ELSE 4 END, t.due_date ASC';
+  sql += ' ORDER BY t.created_at DESC';
 
   res.json(db.prepare(sql).all(...params));
 });
@@ -34,7 +34,7 @@ router.post('/', authenticate, requireProjectAccess, [
   body('title').trim().notEmpty().withMessage('Title required'),
   body('description').optional().trim(),
   body('status').optional().isIn(['todo', 'in_progress', 'review', 'done']),
-  body('priority').optional().isIn(['low', 'medium', 'high', 'urgent']),
+  body('priority').optional(),
   body('assignee_id').optional().isInt(),
   body('due_date').optional().isDate()
 ], (req, res) => {
@@ -92,7 +92,7 @@ router.get('/:id', authenticate, requireProjectAccess, (req, res) => {
 router.put('/:id', authenticate, requireProjectAccess, [
   body('title').optional().trim().notEmpty(),
   body('status').optional().isIn(['todo', 'in_progress', 'review', 'done']),
-  body('priority').optional().isIn(['low', 'medium', 'high', 'urgent']),
+  body('priority').optional(),
   body('assignee_id').optional({ nullable: true }),
   body('due_date').optional({ nullable: true })
 ], (req, res) => {
